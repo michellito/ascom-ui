@@ -1,10 +1,30 @@
 import streamlit as st
-
-st.title("Telescope App")
-
 import time
+import numpy as np
 from alpaca.telescope import *      # Multiple Classes including Enumerations
 from alpaca.exceptions import *     # Or just the exceptions you want to catch
+import streamlit as st
+
+st.set_page_config(page_title="Telescope App", page_icon="🔭")
+
+st.title("🔭 Telescope App")
+
+st.sidebar.header("TXT File / Launch")
+
+
+uploaded_file = st.file_uploader("Select txt file", type=["txt"], accept_multiple_files=False)
+if uploaded_file is not None:
+  for i in range(len(uploaded_file)):
+      head, sep, tail = str(uploaded_file[i].name).partition(".")
+      st.write("file name："+str(head))
+      st.write("file type："+str(tail))
+      st.write(uploaded_file)
+
+col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
+with col1:
+    if st.button('Launch'):
+        st.write('Launching!')
+
 
 T = Telescope('host.docker.internal:80', 0) # Local Omni Simulator
 
